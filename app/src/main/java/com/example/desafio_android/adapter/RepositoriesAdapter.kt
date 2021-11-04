@@ -35,10 +35,10 @@ class RepositoriesAdapter(
                 forkQtd.text = item.forks.toString()
                 repositoryStars.text = item.stars.toString()
                 username.text = item.owner.login
-                Glide.with(iconeUsuario)
-                    .load(item.owner.icone_usuario)
+                Glide.with(avatar)
+                    .load(item.owner.avatar)
                     .circleCrop()
-                    .into(iconeUsuario)
+                    .into(avatar)
             }
         }
     }
