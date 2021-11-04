@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.desafio_android.R
 import com.example.desafio_android.adapter.RepositoriesAdapter
@@ -33,6 +34,9 @@ class RepositoriesActivity : AppCompatActivity(), RepositoriesAdapter.RecyclerVi
         Log.d("Test", "initRecyclerView")
         binding.repositoryRecycler.adapter = adapterRepositories
         binding.repositoryRecycler.layoutManager = LinearLayoutManager(this)
+        binding.repositoryRecycler.addItemDecoration(
+            DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
+        )
         getRepositories()
     }
 
