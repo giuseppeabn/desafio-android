@@ -8,5 +8,4 @@ import retrofit2.http.Query
 interface GithubInterface {
     @GET("search/repositories?q=language:Java&sort=stars")
     fun reposList(@Query("page") page: Int): Call<Repositories>
-
 }

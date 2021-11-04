@@ -1,5 +1,6 @@
 package com.example.desafio_android.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -32,19 +33,24 @@ class RepositoriesActivity : AppCompatActivity(), RepositoriesAdapter.RecyclerVi
         Log.d("Test", "initRecyclerView")
         binding.repositoryRecycler.adapter = adapterRepositories
         binding.repositoryRecycler.layoutManager = LinearLayoutManager(this)
-        getRepositoryes()
+        getRepositories()
     }
 
     override fun onRecyclerViewItemClick(position: Int) {
         Log.d("Test", position.toString())
+        Intent(this, PullActivity::class.java).also {
+            it.putExtra("owner", adapterRepositories.repositories[position].owner.login)
+            it.putExtra("repositorie", adapterRepositories.repositories[position].name)
+            startActivity(it)
+        }
     }
 
-    fun getRepositoryes() {
-        handleSuccesGetRespositoryes()
-        handleErrorGetRespositoryes()
+    fun getRepositories() {
+        handleSuccesGetRespositories()
+        handleErrorGetRespositories()
     }
 
-    private fun handleErrorGetRespositoryes() {
+    private fun handleErrorGetRespositories() {
         viewModel.hasError.observe(this, Observer {
             if(it){
                 Toast.makeText(this, "Ha ocurrido un error!", Toast.LENGTH_SHORT).show()
@@ -52,7 +58,7 @@ class RepositoriesActivity : AppCompatActivity(), RepositoriesAdapter.RecyclerVi
         })
     }
 
-    private fun handleSuccesGetRespositoryes() {
+    private fun handleSuccesGetRespositories() {
         viewModel.allRepositories.observe(this, Observer {
             for (i in it) {
                 if (i !in adapterRepositories.repositories) {
