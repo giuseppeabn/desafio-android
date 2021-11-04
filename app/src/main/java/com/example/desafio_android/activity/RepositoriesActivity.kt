@@ -9,7 +9,8 @@ import com.example.desafio_android.adapter.RepositoriesAdapter
 import com.example.desafio_android.databinding.ActivityRepositoryBinding
 
 class RepositoriesActivity : AppCompatActivity(), RepositoriesAdapter.RecyclerViewClickListener {
-    private val adapterRepositories = RepositoriesAdapter(ArrayList(), this)
+    var dummyList: ArrayList<Int> = arrayListOf(1,2,3,4,5,6,7,8,9,0,10,11,12,13)
+    private val adapterRepositories = RepositoriesAdapter(dummyList, this)
     private lateinit var binding: ActivityRepositoryBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,9 +20,13 @@ class RepositoriesActivity : AppCompatActivity(), RepositoriesAdapter.RecyclerVi
     }
 
     private fun initRecyclerView() {
+
         binding = ActivityRepositoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        Log.d("Test", "initRecyclerView")
         binding.repositoryRecycler.adapter = adapterRepositories
+        binding.repositoryRecycler.layoutManager = LinearLayoutManager(this)
+
     }
 
     override fun onRecyclerViewItemClick(position: Int) {
