@@ -5,9 +5,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.desafio_android.databinding.ItemRepositoryBinding
+import com.example.desafio_android.model.Repository
 
 class RepositoriesAdapter(
-    val repositories: MutableList<Int>,
+    val repositories: MutableList<Repository>,
     private val listener: RecyclerViewClickListener
 ) : RecyclerView.Adapter<RepositoriesAdapter.ViewHolder>() {
     // Encargado de crear nuevas vistas cuando es requerido
@@ -24,11 +25,11 @@ class RepositoriesAdapter(
 
     // recibe la vista que debe almacenar
     class ViewHolder(
-        private val itemRepositoryBinding: ItemRepositoryBinding
+        val itemRepositoryBinding: ItemRepositoryBinding
     ) : RecyclerView.ViewHolder(itemRepositoryBinding.root) {
-        fun binding(item: String) {
+        fun binding(item: Repository) {
             with(itemRepositoryBinding) {
-                textView.text = item
+                textView.text = item.description
             }
         }
     }
@@ -40,6 +41,10 @@ class RepositoriesAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        Log.d("View", "Item")
+        holder.binding(repositories[position])
+        holder.itemRepositoryBinding.cardRepositorio.setOnClickListener {
+            listener.onRecyclerViewItemClick(position)
+        }
+
     }
 }
