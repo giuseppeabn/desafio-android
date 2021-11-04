@@ -4,6 +4,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.desafio_android.databinding.ItemRepositoryBinding
 import com.example.desafio_android.model.Repository
 
@@ -29,7 +30,15 @@ class RepositoriesAdapter(
     ) : RecyclerView.ViewHolder(itemRepositoryBinding.root) {
         fun binding(item: Repository) {
             with(itemRepositoryBinding) {
-                textView.text = item.description
+                repositoryName.text = item.name
+                repositoryDescription.text = item.description
+                forkQtd.text = item.forks.toString()
+                repositoryStars.text = item.stars.toString()
+                username.text = item.owner.login
+                Glide.with(iconeUsuario)
+                    .load(item.owner.icone_usuario)
+                    .circleCrop()
+                    .into(iconeUsuario)
             }
         }
     }
